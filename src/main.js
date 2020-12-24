@@ -4,8 +4,8 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
-import 'jquery/dist/jquery.min'
-import 'materialize-css/dist/js/materialize.min'
+import 'jquery/dist/jquery'
+import 'materialize-css/dist/js/materialize'
 
 Vue.config.productionTip = false
 
