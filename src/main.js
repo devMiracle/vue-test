@@ -4,6 +4,9 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+import 'jquery/dist/jquery.min'
+import 'materialize-css/dist/js/materialize.min'
+
 Vue.config.productionTip = false
 
 new Vue({
@@ -11,3 +14,6 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+
+
