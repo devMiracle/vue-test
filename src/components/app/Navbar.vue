@@ -24,6 +24,7 @@
       </div>
     </nav>
     <div id="navbar-footer"></div>
+    <!-- <ButtonScrollTop /> -->
   </div>
 
   
@@ -31,6 +32,7 @@
 
 <script>
 import "jquery/dist/jquery";
+import ButtonScrollTop from '@/components/app/ButtonScrollTop'
 export default {
   data: () => ({
     links: [
@@ -39,8 +41,52 @@ export default {
       { title: "photo", url: "/1" },
       { title: "map", url: "/2" },
     ],
+    num: 0,
   }),
-  methods: {},
+  components: {
+    ButtonScrollTop
+  },
+  methods: {
+    scrollNavbar(event) {
+      var wnd = window;
+      var menu = document.getElementById("menu");
+      var navbarFooter = document.getElementById("navbar-footer");
+
+      // console.log("num: " + this.num);
+      // console.log("1: " + wnd.scrollY);
+      // console.log("2: " + menu.offsetTop);
+
+      // console.log({menu});
+      // console.log(menu.clientHeight);
+      // console.log(menu.offsetHeight);
+      // console.log(menu.scrollHeight);
+
+      // console.log(navbarFooter.style.height);
+
+      if (menu.offsetTop != 0) {
+        this.num = menu.offsetTop;
+      }
+      if (wnd.scrollY >= this.num) {
+        navbarFooter.style.height = menu.scrollHeight + "px";
+        menu.style.position = "fixed";
+        menu.style.top = "0";
+        //menu.style.left = "0";
+        //menu.style.width = "100%";
+      } else {
+        menu.style = "";
+        navbarFooter.style.height = "0px";
+      }
+    },
+  },
+  created() {
+    window.addEventListener("scroll", this.scrollNavbar);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.scrollNavbar);
+  },
+
+
+
   mounted() {
     // $(document).ready(function () {
     //   $(".sidenav").sidenav();
