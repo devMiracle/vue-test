@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import ButtonScrollTop from '@/components/app/ButtonScrollTop'
 import Navbar from "@/components/app/Navbar";
+import ButtonScrollTop from '@/components/app/ButtonScrollTop'
 export default {
   components: {
     Navbar,
@@ -43,10 +43,15 @@ export default {
   },
   
 };
+
+
+
+
+
 </script>
 
 <style lang="scss">
-@import "~materialize-css/dist/css/materialize.css";
+@import "~materialize-css/dist/css/materialize.min.css";
 
 html {
   scroll-behavior: smooth;

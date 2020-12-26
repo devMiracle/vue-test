@@ -1,9 +1,7 @@
 <template>
-  <!-- <div class="container test"> -->
   <div>
     <a
-      href="#app"
-      @click.prevent="clickButtonTop"
+      @click="clickButtonTop"
       class="button-scroll-top btn-floating btn-large waves-effect waves-light red"
       ><i class="material-icons">arrow_upward</i></a
     >
@@ -14,7 +12,13 @@
 <script>
 export default {
   methods: {
-    clickButtonTop: () => {},
+    clickButtonTop: () => {
+      console.log("scroll");
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    },
   },
 };
 </script>
@@ -25,6 +29,10 @@ export default {
   bottom: 15px;
   right: 15px;
   background: #ee6e73 !important;
+  transition: .3s all ease-in-out;
+  /* opacity: .8; */
+  opacity: 0;
+  /* display: none; */
 }
 .test {
   position: fixed;
@@ -32,6 +40,9 @@ export default {
   left: 0;
   right: 0;
   bottom: 0px;
-  
+}
+.button-scroll-top-display{
+  /* display: inline-block; */
+  opacity: .8;
 }
 </style>

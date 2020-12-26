@@ -2,12 +2,23 @@
   <div>
     <nav id="menu">
       <div class="nav-wrapper container style-nav">
-        <router-link to="/" class="brand-logo">Logo</router-link>
-        <router-link
+        <router-link to="/" class="brand-logo">
+         <div class="logo-container">
+            <img class="logo" src="@/assets/muffin-logo.jpg" alt="muffin" />
+         </div>
+        </router-link>
+        <!-- <a href="#" data-activates="mobile-demo" class="button-collapse">
+          <i class="material-icons">menu</i>
+        </a> -->
+        <!-- <router-link
           to="/"
           data-target="mobile-demo dropdown1"
           class="sidenav-trigger dropdown-trigger"
-          ><i class="material-icons">menu</i></router-link
+        >
+          <i class="material-icons">menu</i>
+        </router-link> -->
+        <a href="#" data-target="mobile-demo" class="right sidenav-trigger"
+          ><i class="material-icons">menu</i></a
         >
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <router-link
@@ -23,46 +34,56 @@
         </ul>
       </div>
     </nav>
+
+    <ul class="sidenav" id="mobile-demo" @click="closeSidenav">
+      <router-link
+        v-for="link in links"
+        :key="link.url"
+        :to="link.url"
+        tag="li"
+        active-class="active"
+        :exact="link.exact"
+      >
+        <a href="#">{{ link.title }}</a>
+      </router-link>
+    </ul>
+
     <div id="navbar-footer"></div>
     <!-- <ButtonScrollTop /> -->
   </div>
-
-  
 </template>
 
 <script>
-import "jquery/dist/jquery";
-import ButtonScrollTop from '@/components/app/ButtonScrollTop'
+import { JQuery, $ } from "jquery";
+import ButtonScrollTop from "@/components/app/ButtonScrollTop";
 export default {
   data: () => ({
     links: [
-      { title: "home", url: "/", exact: true },
-      { title: "about", url: "/about" },
-      { title: "photo", url: "/1" },
-      { title: "map", url: "/2" },
+      { title: "Главная", url: "/", exact: true },
+      { title: "Галерея", url: "/about" },
+      { title: "Начинки", url: "/1" },
+      { title: "Доставка", url: "/2" },
+      { title: "Обратная связь", url: "/3" },
+      { title: "Начинки", url: "/4" },
     ],
     num: 0,
   }),
   components: {
-    ButtonScrollTop
+    ButtonScrollTop,
   },
   methods: {
+    closeSidenav: () => {
+      var elem = document.getElementById("mobile-demo");
+      var instance = M.Sidenav.getInstance(elem);
+      instance.close();
+    },
+
     scrollNavbar(event) {
       var wnd = window;
       var menu = document.getElementById("menu");
       var navbarFooter = document.getElementById("navbar-footer");
-
-      // console.log("num: " + this.num);
-      // console.log("1: " + wnd.scrollY);
-      // console.log("2: " + menu.offsetTop);
-
-      // console.log({menu});
-      // console.log(menu.clientHeight);
-      // console.log(menu.offsetHeight);
-      // console.log(menu.scrollHeight);
-
-      // console.log(navbarFooter.style.height);
-
+      var ButtonScrollTop = document.querySelector(".button-scroll-top");
+      // console.log(ButtonScrollTop)
       if (menu.offsetTop != 0) {
         this.num = menu.offsetTop;
       }
@@ -72,9 +93,11 @@ export default {
         menu.style.top = "0";
         //menu.style.left = "0";
         //menu.style.width = "100%";
+        ButtonScrollTop.classList.add("button-scroll-top-display");
       } else {
         menu.style = "";
         navbarFooter.style.height = "0px";
+        ButtonScrollTop.classList.remove("button-scroll-top-display");
       }
     },
   },
@@ -85,24 +108,50 @@ export default {
     window.removeEventListener("scroll", this.scrollNavbar);
   },
 
-
-
   mounted() {
-    // $(document).ready(function () {
-    //   $(".sidenav").sidenav();
-    // });
-    // $('.dropdown-trigger').dropdown();
+    document.addEventListener("DOMContentLoaded", function () {
+      var elems = document.querySelectorAll(".sidenav");
+      var instances = M.Sidenav.init(elems, {
+        edge: "left",
+        draggable: true,
+        inDuration: 250,
+        outDuration: 250,
+      });
+    });
   },
 };
 </script>
 
 <style scoped>
-.style-nav {
+/* .style-nav {
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
+} */
+/* .brand-logo {
+  position: inherit;
+} */
+.sidenav {
+  width: auto;
+  height: auto;
+  border-radius: 0 0 15px 0;
+  padding-bottom: 0;
+  opacity: 0.85;
 }
-.brand-logo {
-  position: unset !important;
+.logo-container {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 30px;
+  
+}
+.logo {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transform: scale(1.6);
+  border: 3px dotted #ee6e73;
 }
 </style>
