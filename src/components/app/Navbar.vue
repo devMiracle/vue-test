@@ -60,7 +60,7 @@ export default {
   data: () => ({
     links: [
       { title: "Главная", url: "/", exact: true },
-      { title: "Галерея", url: "/about" },
+      { title: "Галерея", url: "/gallery" },
       { title: "Начинки", url: "/1" },
       { title: "Доставка", url: "/2" },
       { title: "Обратная связь", url: "/3" },
@@ -146,6 +146,13 @@ export default {
   margin-left: 30px;
   
 }
+  @media screen and (max-width: 992px) {
+    .logo-container {
+      margin-left: 0;
+    }
+  }
+
+
 .logo {
   display: flex;
   width: 50px;
